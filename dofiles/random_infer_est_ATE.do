@@ -1,5 +1,7 @@
 log using "random_infer_est_ATE.log", replace text
 
+* eddititiedd
+
 * load data from working directory
 use "random_infer_est_ATE.dta", clear
 
