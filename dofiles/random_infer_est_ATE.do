@@ -1,9 +1,11 @@
 log using "random_infer_est_ATE.log", replace text
 
 * editted by stata and pushed by git desktop
+** editted again with M1Air - 20211030 00:26
+
 
 * load data from working directory
-use "random_infer_est_ATE.dta", clear
+use "../data/random_infer_est_ATE.dta", clear
 
 describe
 summarize
@@ -29,7 +31,7 @@ display ATE_est
 generate id = _n, before(d)
 list
 
-save "random_infer_est_ATE_id.dta", replace
+save "../data/random_infer_est_ATE_id.dta", replace
 
 combin id, k(2)
 list
@@ -37,11 +39,11 @@ list
 rename id_* trt_*
 list
 
-save "random_infer_est_trt_combin.dta", replace
+save "../data/random_infer_est_trt_combin.dta", replace
 
 
 * generate control groups with combination C(7,5)
-use "random_infer_est_ATE_id.dta", clear
+use "../data/random_infer_est_ATE_id.dta", clear
 
 combin id, k(5)
 list
@@ -56,20 +58,20 @@ list
 
 drop id_*
 
-save "random_infer_est_ctr_combin.dta", replace
+save "../data/random_infer_est_ctr_combin.dta", replace
 
 
 * merge treatment and control groups
-use "random_infer_est_trt_combin.dta", clear
+use "../data/random_infer_est_trt_combin.dta", clear
 
 list
 
-merge 1:1 _n using "random_infer_est_ctr_combin.dta"
+merge 1:1 _n using "../data/random_infer_est_ctr_combin.dta"
 drop _merge
 
 list
 
-save "random_infer_est_sharpNull_base.dta", replace
+save "../data/random_infer_est_sharpNull_base.dta", replace
 
 
 * replace trt_* values with observed results y
@@ -96,7 +98,7 @@ forvalues i = 1/5 {
     replace ctr_`i' = 30 if ctr_`i' == 7
 }
 
-save "random_infer_est_sharpNull_numeric.dta", replace
+save "../data/random_infer_est_sharpNull_numeric.dta", replace
 
 
 * generate ATT, ATU, and ATE 
