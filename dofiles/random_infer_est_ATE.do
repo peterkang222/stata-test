@@ -1,6 +1,6 @@
 log using "random_infer_est_ATE.log", replace text
 
-* eddititiedd
+* editted by stata and pushed by git desktop
 
 * load data from working directory
 use "random_infer_est_ATE.dta", clear
